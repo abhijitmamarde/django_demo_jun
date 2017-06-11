@@ -19,8 +19,16 @@ def add_student(request):
     # return HttpResponse("\n".join(output))
     return render(request, "add_student.html", dict(form=form))
 
+def edit_student(request, student_id):
+    student_id = int(student_id)
+    student = Student.objects.filter(id=student_id)[0]
+
+    form = StudentAddForm(instance=student)
+    
+    return render(request, "edit_student.html", dict(form=form, student=student))
+
 def list_student(request):
-    students = Student.objects.all()
+    students = Student.objects.all().order_by('last_name')
     return render(request, "list_student.html", dict(students=students))
 
 def show_student(request, student_id):
@@ -35,13 +43,33 @@ def add_student_handler(request):
     s.save()
     # return render(request, "add_student_success.html", dict(student=s))
 
-    students = Student.objects.all()
-    return render(request, "list_student.html", dict(students=students))
+    return list_student(request)
 
+def edit_student_submit_handler(request, student_id):
+    student_id = int(student_id)
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    # s = Student(first_name = first_name, last_name = last_name)
+    s = Student.objects.filter(id=student_id)[0]
+    s.first_name = first_name
+    s.last_name = last_name
+    s.save()
+
+    return list_student(request)
+
+def delete_student(request, student_id):
+    student_id = int(student_id)
+    s = Student.objects.filter(id=student_id)[0]
+    s.delete()
+    return list_student(request)
 
 urlpatterns = [
     url(r'^list$', list_student),
     url(r'^show/(\d+)$', show_student),
     url(r'^add$', add_student),
+    url(r'^edit/(\d+)$', edit_student),
+    url(r'^edit_student_submit/(\d+)$', edit_student_submit_handler),
     url(r'^addnew$', add_student_handler),
+    url(r'^delete/(\d+)$', delete_student),
+    
 ]

@@ -3,7 +3,11 @@
 
 <ul>
     {% for student in students %}
-    <li><a href="/student/show/{{student.id}}">{{ student.get_name }}</a></li>
+    <li>
+        <a href="/student/edit/{{student.id}}">Edit</a>
+        <a href="/student/delete/{{student.id}}">Delete</a>
+        <a href="/student/show/{{student.id}}">{{ student.get_name }}</a>
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}

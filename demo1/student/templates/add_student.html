@@ -4,4 +4,4 @@
     {{ form.as_p }} {% csrf_token %}
     <input type="submit" name="submit" />
 </form>
-{% endblock %}
+{% include "students_list.html" %} {% endblock %}
