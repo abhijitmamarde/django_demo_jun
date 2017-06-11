@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block page_content %}
+<h3>Showing List of all Students</h3>
+
+<ul>
+    {% for student in students %}
+    <li><a href="/student/show/{{student.id}}">{{ student.get_name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

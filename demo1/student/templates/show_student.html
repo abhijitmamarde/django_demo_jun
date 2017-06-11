@@ -1,0 +1,8 @@
+{% extends "base.html" %} {% block page_content %}
+<h3>Showing Student with id: {{ student_id }}</h3>
+
+<p> {{ student.first_name }} {{ student.last_name }} </p>
+<p> {{ student.get_name }} </p>
+<p> {{ student.uppercase_name }} </p>
+<p> {{ student.get_name }} </p>
+{% endblock %}
