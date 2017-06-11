@@ -1,9 +1,10 @@
 from django.conf.urls import url
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Student, CommonFields
 
 from django.shortcuts import render
 from django import forms
+
 
 class StudentAddForm(forms.ModelForm):
 
@@ -61,7 +62,8 @@ def delete_student(request, student_id):
     student_id = int(student_id)
     s = Student.objects.filter(id=student_id)[0]
     s.delete()
-    return list_student(request)
+    # return list_student(request)
+    return HttpResponseRedirect("/student/list")
 
 urlpatterns = [
     url(r'^list$', list_student),
