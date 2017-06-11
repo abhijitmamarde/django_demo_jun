@@ -1,10 +1,12 @@
+'''
+Student application's urls and views functions
+'''
+
 from django.conf.urls import url
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import Student, CommonFields
-
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django import forms
-
+from .models import Student
 
 class StudentAddForm(forms.ModelForm):
 
@@ -63,15 +65,17 @@ def delete_student(request, student_id):
     s = Student.objects.filter(id=student_id)[0]
     s.delete()
     # return list_student(request)
-    return HttpResponseRedirect("/student/list")
+    return redirect("/student/list")
 
 urlpatterns = [
+    # index page for student
+    url(r'$', list_student, name="student_index"),
     url(r'^list$', list_student),
     url(r'^show/(\d+)$', show_student),
     url(r'^add$', add_student),
     url(r'^edit/(\d+)$', edit_student),
     url(r'^edit_student_submit/(\d+)$', edit_student_submit_handler),
-    url(r'^addnew$', add_student_handler),
+    url(r'^add_student_submit$', add_student_handler),
     url(r'^delete/(\d+)$', delete_student),
     
 ]

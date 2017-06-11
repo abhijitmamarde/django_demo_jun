@@ -1,3 +1,4 @@
 *.py[co]
 __pycache__
 demo1/db.sqlite3
+.idea

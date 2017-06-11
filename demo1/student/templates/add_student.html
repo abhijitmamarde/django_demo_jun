@@ -1,7 +1,13 @@
-{% extends "base.html" %} {% block page_content %}
+{% extends "base.html" %}
+{% block page_content %}
+
 <h3>Add student</h3>
-<form method="POST" action="/student/addnew">
-    {{ form.as_p }} {% csrf_token %}
+
+<form method="POST" action="/student/add_student_submit">
+    {{ form.as_p }}
+    {% csrf_token %}
     <input type="submit" name="submit" />
 </form>
-{% include "students_list.html" %} {% endblock %}
+
+{% include "students_list.html" %}
+{% endblock %}
